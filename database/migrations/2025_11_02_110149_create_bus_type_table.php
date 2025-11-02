@@ -6,21 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('bus_types', function (Blueprint $table) {
-           $table->id();
-$table->string('name')->unique(); // e.g., 'Express Coach', 'Double-Decker'
-$table->timestamps();
+            $table->id('type_id'); // Custom primary key name
+            $table->string('type_name', 50)->unique(); // e.g., Normal, Air-Condition
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('updated_by_admin_id')->nullable(); // Soft foreign key to admin_users
+            $table->timestamps(); // updated_at
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('bus_types');

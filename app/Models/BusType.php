@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BusType extends Model
 {
-    protected $fillable = ['name'];
+    use HasFactory;
 
-    public function schedules(): HasMany
+    protected $primaryKey = 'type_id';
+    protected $table = 'bus_types';
+
+    protected $fillable = [
+        'type_name',
+        'description',
+    ];
+
+    /**
+     * Get the buses associated with this type.
+     */
+    public function buses()
     {
-        return $this->hasMany(BusSchedule::class);
+        return $this->hasMany(Bus::class, 'type_id', 'type_id');
     }
 }
