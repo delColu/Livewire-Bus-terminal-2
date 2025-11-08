@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Disable foreign key checks for truncation (important for order)
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // Clear tables in reverse dependency order
         Schedule::truncate();
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         BusType::truncate();
         // ... (other models to clear)
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Call your specific seeders here, if any
         $this->call([

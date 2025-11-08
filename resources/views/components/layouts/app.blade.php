@@ -36,9 +36,6 @@
                     <a href="{{ route('schedule.public') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">
                         Public Schedules
                     </a>
-                    <a href="{{ route('schedule.admin') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition">
-                        Admin
-                    </a>
                 </div>
             </div>
         </div>

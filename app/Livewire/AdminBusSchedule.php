@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Livewire;
-
+ 
 use Livewire\Component;
 use App\Models\Schedule;
 use App\Models\Fare;
@@ -87,15 +87,26 @@ class AdminBusSchedule extends Component
 
     public function render()
     {
-        return view('livewire.admin-bus-schedule', [
-            // Ensure relationships are eager loaded (bus, driver, fare)
-            'schedules' => Schedule::with(['bus', 'driver', 'fare'])->latest('schedule_id')->paginate(10),
-            
-            // Data for Dropdowns:
-            'buses' => Bus::all(),
-            'drivers' => Driver::all(),
-            'fares' => Fare::all(),
-            'busTypeOptions' => ['Normal', 'Air-conditioned'], 
-        ]);
-    }
+    return view('livewire.admin-bus-schedule', [
+        'buses' => Bus::all(),
+        'drivers' => Driver::all(),
+        'fares' => Fare::all(),
+        'schedules' => Schedule::paginate(10),
+    ]);
 }
+
+}
+
+// public function render()
+//     {
+//         return view('livewire.admin-bus-schedule', [
+//             // Ensure relationships are eager loaded (bus, driver, fare)
+//             'schedules' => Schedule::with(['bus', 'driver', 'fare'])->latest('schedule_id')->paginate(10),
+            
+//             // Data for Dropdowns:
+//             'buses' => Bus::all(),
+//             'drivers' => Driver::all(),
+//             'fares' => Fare::all(),
+//             'busTypeOptions' => ['Normal', 'Air-conditioned'], 
+//         ]);
+//     }
