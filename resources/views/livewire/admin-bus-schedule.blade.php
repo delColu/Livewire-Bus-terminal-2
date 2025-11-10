@@ -179,6 +179,6 @@
 
     <!-- Pagination -->
     <div class="mt-4">
-        {{ $schedules->links() }}
+        ({{ $schedules->links() }})
     </div>
 </div>
