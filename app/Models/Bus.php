@@ -31,12 +31,17 @@ class Bus extends Model
         return $this->belongsTo(Driver::class, 'driver_id', 'driver_id');
     }
 
-    /**
+    /** 
      * Get the route for the bus.
      */
     public function route()
     {
         return $this->belongsTo(Route::class, 'route_id', 'route_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by_admin_id', 'admin_id');
     }
 
     /**

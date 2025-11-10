@@ -9,7 +9,7 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    // --- FIX: Explicitly set the table name ---
+    // --- FIX: Explicitly set the table name --- 
     protected $table = 'schedules'; 
     // ------------------------------------------
 
@@ -20,26 +20,32 @@ class Schedule extends Model
     protected $fillable = [
         'bus_id',
         'driver_id',
+        'route_id',
         'departure_time',
         'arrival_time',
         'updated_by_admin_id',
     ];
 
-    /**
-     * Get the Bus associated with the Schedule.
-     */
     public function bus()
     {
-        // Links to the Bus model using the custom foreign key 'bus_id'
         return $this->belongsTo(Bus::class, 'bus_id', 'bus_id');
     }
 
-    /**
-     * Get the Driver associated with the Schedule.
-     */
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'route_id', 'route_id');
+    }
+
     public function driver()
     {
-        // Links to the Driver model using the custom foreign key 'driver_id'
         return $this->belongsTo(Driver::class, 'driver_id', 'driver_id');
     }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by_admin_id', 'admin_id');
+    }
+
+    
+
 }

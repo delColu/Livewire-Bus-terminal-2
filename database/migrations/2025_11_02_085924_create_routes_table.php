@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('route_name', 50)->unique(); // e.g., Tagbilaran - Tubigon
             $table->string('start_location', 100);
             $table->string('end_location', 100);
+            $table->integer('distance_km');
             $table->decimal('base_fare', 10, 2); // Base fare as per ERD
             $table->unsignedBigInteger('updated_by_admin_id')->nullable(); // Soft foreign key to admin_users
             $table->timestamps(); // updated_at

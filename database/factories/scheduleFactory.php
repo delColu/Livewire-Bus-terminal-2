@@ -17,24 +17,20 @@ class scheduleFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    // protected $fillable = [
-    //     'bus_id',
-    //     'driver_id',
-    //     'departure_time',
-    //     'arrival_time',
-    //     'updated_by_admin_id',
-    // ];
     public function definition(): array
     {
         return [
             'bus_id' => Bus::query()->inRandomOrder()->value('bus_id') 
                 ?? Bus::factory(),
+            'route_id' => Bus::query()->inRandomOrder()->value('route_id') 
+                ?? Bus::factory(),
             'driver_id' => Driver::query()->inRandomOrder()->value('driver_id') 
                 ?? Driver::factory(),
-            'departure_time' => $this->faker->dateTimeBetween('+1 days', '+1 month'),
-            'arrival_time' => $this->faker->dateTimeBetween('+1 days', '+1 month'),
-            'updated_by_admin_id' => Admin::query()->inRandomOrder()->value('driver_id') 
-                ?? Driver::factory(),
+            'departure_time' => $this->faker->time('H:i:s'),
+            'arrival_time' => $this->faker->time('H:i:s'),
+            'updated_by_admin_id' => Admin::query()->inRandomOrder()->value('id') 
+                ?? Admin::factory(),
+
         ];
     }
 }

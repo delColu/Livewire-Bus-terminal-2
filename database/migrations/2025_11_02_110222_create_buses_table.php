@@ -11,20 +11,11 @@ return new class extends Migration
         Schema::create('buses', function (Blueprint $table) {
             $table->id('bus_id'); // Custom primary key name
             
-            // Driver Foreign Key
-            $table->unsignedBigInteger('driver_id');
-            $table->foreign('driver_id')->references('driver_id')->on('drivers')->onDelete('cascade');
-            
-            $table->string('bus_number', 10)->unique();
-            $table->integer('capacity');
-            
-            // Route Foreign Key
-            $table->unsignedBigInteger('route_id');
-            $table->foreign('route_id')->references('route_id')->on('routes')->onDelete('cascade');
-            
-            // Bus Type Foreign Key
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('type_id')->on('bus_types')->onDelete('cascade'); 
+            $table->unsignedBigInteger('driver_id')->nullable();
+            $table->string('bus_number', 20)->unique();
+            $table->integer('capacity')->default(40);
+            $table->unsignedBigInteger('route_id')->constrainted('routes', 'route_id')->onDelete('set null');
+            $table->unsignedBigInteger('type_id')->constrained('bus_types', 'type_id')->onDelete('set null');
             
             $table->string('official_receipt_number', 50)->unique()->nullable();
             $table->string('certificate_of_registration', 50)->unique()->nullable();

@@ -28,18 +28,18 @@ class busFactory extends Factory
     public function definition(): array
     {
         return [
-            'driver_id' => \App\Models\Driver::query()->inRandomOrder()->value('id') 
+            'driver_id' => \App\Models\Driver::query()->inRandomOrder()->value('driver_id') 
                 ?? \App\Models\Driver::factory(),
                 
             'bus_number' => $this->faker->unique()->bothify('BUS-####'),
 
             'capacity' => $this->faker->numberBetween(20, 60),
 
-            'route_id' => \App\Models\Route::query()->inRandomOrder()->value('id') 
+            'route_id' => \App\Models\Route::query()->inRandomOrder()->value('route_id') 
                 ?? \App\Models\Route::factory(),
 
-            'type_id' => \App\Models\BusType::query()->inRandomOrder()->value('id') 
-                ?? \App\Models\BusType::factory(),
+            'type_id' => \App\Models\BusType::query()->inRandomOrder()->value('type_id') 
+                ?? \App\Models\BusType::factory(), 
 
             'official_receipt_number' => $this->faker->unique()->numerify('ORN-########'),
 

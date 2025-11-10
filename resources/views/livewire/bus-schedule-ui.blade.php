@@ -1,4 +1,4 @@
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-gray-800/80 p-6 rounded-xl shadow-2xl mb-8">
         <h2 class="text-3xl font-extrabold text-yellow-400 mb-4">Bus Schedule Finder</h2>
 
@@ -119,25 +119,20 @@
                         </thead>
                         <tbody class="bg-gray-900 divide-y divide-gray-700">
                             @foreach ($schedules as $schedule)
-                                @php
-                                    $distance = $schedule->route->distance_km ?? 50;
-                                    $farePerKm = 2.00;
-                                    $acSurcharge = ($schedule->busType->name === 'Air-conditioned') ? 10.00 : 0.00;
-                                    $finalFare = ($distance * $farePerKm) + $acSurcharge;
-                                @endphp
                                 <tr class="hover:bg-gray-800 transition">
-                                    <td class="px-6 py-4 text-yellow-400 font-medium">{{ $schedule->bus_number }}</td>
-                                    <td class="px-6 py-4 text-gray-300">{{ $schedule->route->name }}</td>
-                                    <td class="px-6 py-4 text-gray-400 font-semibold">{{ $distance }} km</td>
+                                    <td class="px-6 py-4 text-yellow-400 font-medium">{{ $schedule->bus->bus_number }}</td>
+                                    <td class="px-6 py-4 text-gray-300">{{ $schedule->bus->route->route_name }}</td>
+                                    <td class="px-6 py-4 text-gray-400 font-semibold">{{ $schedule->bus->route->distance_km }} km</td>
                                     <td class="px-6 py-4 text-white font-bold">{{ \Carbon\Carbon::parse($schedule->departure_time)->format('h:i A') }}</td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 rounded-full text-xs font-semibold 
-                                            {{ $schedule->busType->name === 'Air-conditioned' ? 'bg-green-800 text-green-200' : 'bg-blue-800 text-blue-200' }}">
-                                            {{ $schedule->busType->name }}
+                                            {{ $schedule->bus->busType->type_name === 'Air-conditioned' ? 'bg-green-800 text-green-200' : 'bg-blue-800 text-blue-200' }}">
+                                            {{ $schedule->bus->busType->type_name }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-yellow-400 font-bold">₱{{ number_format($finalFare, 2) }}</td>
+                                    <td class="px-6 py-4 text-yellow-400 font-bold">₱{{ number_format($schedule->route->base_fare, 2) }}</td>
                                 </tr>
+                            
                             @endforeach
                         </tbody>
                     </table>

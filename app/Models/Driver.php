@@ -25,6 +25,12 @@ class Driver extends Model
     /**
      * Get the buses assigned to the driver.
      */
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by_admin_id', 'admin_id');
+    }
+    
     public function buses()
     {
         return $this->hasMany(Bus::class, 'driver_id', 'driver_id');

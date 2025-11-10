@@ -49,7 +49,7 @@ class BusScheduleUI extends Component
         $searchTerm = '%' . $this->searchTerm . '%'; 
 
         // CHANGED: Using \App\Models\Schedule::query()
-        $schedules = \App\Models\Schedule::query()
+        $schedules = Schedule::query()
             // Eager load relationships to avoid N+1 issues in the view
             ->with(['bus.route', 'bus.busType', 'driver'])
 

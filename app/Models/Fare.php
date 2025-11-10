@@ -10,19 +10,26 @@ class Fare extends Model
     use HasFactory;
 
     protected $primaryKey = 'fare_id';
-    protected $table = 'fare';
+    protected $table = 'fares';
 
     protected $fillable = [
         'route_id',
-        'fare_amount',
+        'base_fare',
+        'increase_fare_per_KM',
         'updated_by_admin_id',
     ];
 
     /**
      * Get the route associated with the fare.
      */
-    public function route()
+
+    public function admin()
     {
-        return $this->belongsTo(Route::class, 'route_id', 'route_id');
+        return $this->belongsTo(Admin::class, 'updated_by_admin_id', 'admin_id');
+    }
+
+    public function bustype()
+    {
+        return $this->hasMany(BusType::class, 'type_id', 'type_id');
     }
 }

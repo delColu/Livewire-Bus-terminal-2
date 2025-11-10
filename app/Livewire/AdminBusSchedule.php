@@ -17,6 +17,14 @@ class AdminBusSchedule extends Component
     // State properties for the form
     public $editingId = null;
     public $isEditMode = false;
+
+    public function toggleEditMode()
+    {
+        $this->isEditMode = ! $this->isEditMode;
+        if (! $this->isEditMode) {
+            $this->resetForm();
+        }
+    }
     
     // Form fields
     #[Rule('required|exists:buses,bus_id')]
@@ -31,9 +39,7 @@ class AdminBusSchedule extends Component
     #[Rule('required|date_format:H:i')]
     public $departure_time = ''; 
     
-    // Static selection: Normal or Air-conditioned
-    #[Rule('required|in:Normal,Air-conditioned')]
-    public $bus_type = '';
+    
     
     public function resetForm()
     {
@@ -46,10 +52,9 @@ class AdminBusSchedule extends Component
         $this->validate(); // Uses the #[Rule] attributes
         
         // Data structure for the 'schedules' table
-        $data = $this->only(['bus_id', 'driver_id', 'fare_id', 'departure_time', 'bus_type']);
+        $data = $this->only(['bus_id', 'driver_id', 'fare_id', 'departure_time']);
 
         if ($this->isEditMode) {
-            // NOTE: Assuming primary key for schedules is 'schedule_id'
             Schedule::findOrFail($this->editingId)->update($data);
             session()->flash('message', '🔄 Schedule updated successfully.');
         } else {

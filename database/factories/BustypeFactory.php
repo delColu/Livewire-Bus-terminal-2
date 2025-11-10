@@ -25,7 +25,7 @@ class BustypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'type_name' => $this->faker->randomElement(['Air-conditioned', 'Regular']),
+            'type_name' => $this->faker->unique()->randomElement(['Air-conditioned', 'Regular']),
             'description' => $this->faker->sentence(),
         ];
     }
